@@ -5,64 +5,58 @@
     android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#16DCA1"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:background="#16DCA1">
+    android:paddingBottom="@dimen/activity_vertical_margin">
 
 
     <EditText
         android:id="@+id/editText"
-        android:layout_marginStart="24dp"
-        android:layout_marginEnd="24dp"
+        android:layout_width="280dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:backgroundTint="@android:color/white"
+        android:fontFamily="@font/poppins"
+        android:hint="Email"
         android:inputType="textEmailAddress"
         android:selectAllOnFocus="true"
+        android:textColor="@android:color/white"
+        android:textColorHint="@android:color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:layout_width="280dp"
-        android:layout_height="0dp"
-        android:layout_alignParentLeft="true"
-        android:layout_marginLeft="65dp"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="271.5dp"
-        android:backgroundTint="@android:color/white"
-        android:hint="Email"
-        android:textColorHint="@android:color/white"
-        android:fontFamily="@font/poppins"
-        android:textColor="@android:color/white"
-        />
+        app:layout_constraintVertical_bias="0.393" />
 
     <EditText
         android:id="@+id/editText2"
-        android:layout_marginStart="24dp"
-        android:layout_marginEnd="24dp"
+        android:layout_width="280dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:backgroundTint="@android:color/white"
+        android:fontFamily="@font/poppins"
+        android:hint="Password"
         android:inputType="textEmailAddress"
         android:selectAllOnFocus="true"
+        android:textColor="@android:color/white"
+        android:textColorHint="@android:color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:layout_width="280dp"
-        android:layout_height="0dp"
-        android:layout_alignParentLeft="true"
-        android:layout_marginLeft="65dp"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="386.5dp"
-        android:backgroundTint="@android:color/white"
-        android:hint="Password"
-        android:textColorHint="@android:color/white"
-        android:fontFamily="@font/poppins"
-        android:textColor="@android:color/white"/>
+        app:layout_constraintVertical_bias="0.527" />
 
     <Button
         android:id="@+id/rectangle_3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="start"
-        android:layout_marginStart="48dp"
-        android:layout_marginTop="450dp"
-        android:layout_marginEnd="48dp"
         android:background="@drawable/rectangle_3"
         android:fontFamily="@font/poppins"
         android:lineHeight="36sp"
@@ -70,9 +64,10 @@
         android:textAppearance="@style/register"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.2" />
+        app:layout_constraintVertical_bias="0.685" />
 </androidx.constraintlayout.widget.ConstraintLayout>
 
 

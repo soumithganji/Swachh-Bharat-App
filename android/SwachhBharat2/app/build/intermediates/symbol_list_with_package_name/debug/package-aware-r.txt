@@ -1646,7 +1646,6 @@ id password
 id password_toggle
 id peekHeight
 id pen1
-id pen2
 id percent
 id phone
 id pin
