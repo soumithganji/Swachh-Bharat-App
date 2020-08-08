@@ -111,7 +111,7 @@
         android:enabled="false"
         android:fontFamily="@font/poppins"
         android:lineHeight="36sp"
-        android:text="Login"
+        android:text="Register"
         android:textAppearance="@style/register"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
