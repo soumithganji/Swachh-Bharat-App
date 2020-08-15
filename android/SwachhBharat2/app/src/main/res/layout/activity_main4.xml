@@ -8,47 +8,6 @@
     android:background="#8600C6"
     tools:context=".Main4Activity">
 
-    <ImageView
-        android:id="@+id/imageview"
-        android:layout_width="167dp"
-        android:layout_height="195dp"
-        android:layout_above="@+id/button_image"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="180dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-
-<!--    <View-->
-<!--        android:id="@+id/circle"-->
-<!--        android:layout_width="64dp"-->
-<!--        android:layout_height="64dp"-->
-<!--        android:layout_alignParentLeft="true"-->
-<!--        android:layout_alignParentTop="true"-->
-<!--        android:background="@drawable/ic_ellipse_2"-->
-<!--        app:layout_constraintBottom_toBottomOf="parent"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintHorizontal_bias="0.904"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toTopOf="parent"-->
-<!--        app:layout_constraintVertical_bias="0.94"-->
-<!--        android:layout_marginBottom="1dp"/>-->
-
-    <Button
-        android:id="@+id/button_image"
-        android:layout_width="40.25dp"
-        android:layout_height="36.75dp"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginEnd="46dp"
-        android:layout_marginRight="44dp"
-        android:background="@drawable/ic_vector"
-        android:onClick="takePicture"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.914" />
 
     <Button
         android:id="@+id/Profile"
@@ -84,16 +43,48 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="27dp"
+        android:fontFamily="@font/poppins"
         android:text="Logout"
         android:textColor="#ffff"
         android:textSize="16dp"
-        android:fontFamily="@font/poppins"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.86"
+        app:layout_constraintHorizontal_bias="0.856"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.014" />
+        app:layout_constraintVertical_bias="0.019" />
+
+    <Button
+        android:id="@+id/button_image"
+        android:layout_width="40.25dp"
+        android:layout_height="36.75dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginEnd="46dp"
+        android:layout_marginRight="44dp"
+        android:background="@drawable/ic_vector"
+
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.914" />
+
+<!--    <View-->
+<!--        android:id="@+id/circle"-->
+<!--        android:layout_width="64dp"-->
+<!--        android:layout_height="64dp"-->
+<!--        android:layout_alignParentLeft="true"-->
+<!--        android:layout_alignParentTop="true"-->
+<!--        android:background="@drawable/ic_ellipse_2"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintHorizontal_bias="0.904"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="parent"-->
+<!--        app:layout_constraintVertical_bias="0.94" />-->
+        <include
+            layout="@layout/content_main"
+            android:layout_height="559dp" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
