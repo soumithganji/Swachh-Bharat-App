@@ -19,6 +19,8 @@ import android.os.ResultReceiver;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -101,6 +103,11 @@ public class Main4Activity extends AppCompatActivity {
         mRecyclerView.setAdapter(listAdapter);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 //        listAdapter.notifyDataSetChanged();
+        //transparent status bar
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            Window w = getWindow();
+            w.setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS, WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
+        }
 
 
     }

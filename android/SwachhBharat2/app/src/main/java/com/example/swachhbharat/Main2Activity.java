@@ -1,14 +1,14 @@
 package com.example.swachhbharat;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
-import android.widget.Toast;
 
-import com.example.swachhbharat.ui.login.LoginActivity;
+import androidx.appcompat.app.AppCompatActivity;
 
 public class Main2Activity extends AppCompatActivity {
     private Button button;
@@ -24,6 +24,11 @@ public class Main2Activity extends AppCompatActivity {
                 openActivity4();
             }
         });
+        //transparent status bar
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            Window w = getWindow();
+            w.setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS, WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
+        }
     }
 
     private void openActivity4() {
