@@ -1441,6 +1441,7 @@ drawable ic_mtrl_chip_close_circle
 drawable ic_rectangle_1
 drawable ic_rectangle_2
 drawable ic_rectangle_4
+drawable ic_splashscreen
 drawable ic_vector
 drawable ic_vector_2
 drawable ic_vector_3
@@ -1471,6 +1472,7 @@ drawable rectangle
 drawable rectangle_2
 drawable rectangle_3
 drawable selection_band_overlay
+drawable splash
 drawable test_custom_background
 drawable tooltip_frame_dark
 drawable tooltip_frame_light
@@ -2772,6 +2774,7 @@ style Widget_MaterialComponents_Toolbar_Surface
 style Widget_Support_CoordinatorLayout
 style login
 style register
+style splashtheme
 style swachh
 styleable ActionBar background backgroundSplit backgroundStacked contentInsetEnd contentInsetEndWithActions contentInsetLeft contentInsetRight contentInsetStart contentInsetStartWithNavigation customNavigationLayout displayOptions divider elevation height hideOnContentScroll homeAsUpIndicator homeLayout icon indeterminateProgressStyle itemPadding logo navigationMode popupTheme progressBarPadding progressBarStyle subtitle subtitleTextStyle title titleTextStyle
 styleable ActionBarLayout android_layout_gravity
