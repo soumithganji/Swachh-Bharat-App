@@ -1427,6 +1427,7 @@ drawable ic_calendar_black_24dp
 drawable ic_clear_black_24dp
 drawable ic_edit_black_24dp
 drawable ic_ellipse_2
+drawable ic_iconfinder
 drawable ic_india_1
 drawable ic_keyboard_arrow_left_black_24dp
 drawable ic_keyboard_arrow_right_black_24dp
@@ -1467,7 +1468,6 @@ drawable notification_template_icon_bg
 drawable notification_template_icon_low_bg
 drawable notification_tile_bg
 drawable notify_panel_notification_icon_bg
-drawable pic
 drawable rectangle
 drawable rectangle_2
 drawable rectangle_3
@@ -1636,6 +1636,8 @@ id icon_only
 id ifRoom
 id image
 id imageView
+id imageView2
+id include
 id india
 id info
 id invisible
@@ -1651,6 +1653,7 @@ id listMode
 id list_item
 id loading
 id login
+id logout
 id masked
 id media_actions
 id message
@@ -1701,6 +1704,7 @@ id packed
 id parallax
 id parent
 id parentPanel
+id parent_layout
 id parent_matrix
 id password
 id password_toggle
@@ -1784,7 +1788,6 @@ id textSpacerNoButtons
 id textSpacerNoTitle
 id textStart
 id textView
-id textView2
 id textView3
 id textView4
 id textView5
@@ -1889,6 +1892,7 @@ layout activity_main2
 layout activity_main3
 layout activity_main4
 layout activity_main5
+layout activity_result
 layout content_main
 layout custom_dialog
 layout design_bottom_navigation_item
@@ -2883,6 +2887,7 @@ styleable View android_theme android_focusable paddingEnd paddingStart theme
 styleable ViewBackgroundHelper android_background backgroundTint backgroundTintMode
 styleable ViewPager2 android_orientation
 styleable ViewStubCompat android_id android_layout android_inflatedId
+xml file_paths
 xml standalone_badge
 xml standalone_badge_gravity_bottom_end
 xml standalone_badge_gravity_bottom_start

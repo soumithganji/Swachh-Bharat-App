@@ -2,6 +2,9 @@ package com.example.swachhbharat;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.app.ActivityOptions;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
@@ -17,10 +20,13 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.ResultReceiver;
 import android.provider.MediaStore;
+import android.transition.Slide;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -42,6 +48,9 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Objects;
 
+
+
+
 public class Main4Activity extends AppCompatActivity {
     private RecyclerView mRecyclerView;
     public ArrayList<item> List = new ArrayList<>();
@@ -54,11 +63,13 @@ public class Main4Activity extends AppCompatActivity {
     private String currentAdd;
     int cameraRequestCode = 1;
     private Bitmap thumbnail,x;
-    private int c;
+
+    private static final int ADDRESS_PICKER_REQUEST = 1020;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setAnimation();
         setContentView(R.layout.activity_main4);
 
         //location
@@ -77,10 +88,20 @@ public class Main4Activity extends AppCompatActivity {
         //edit profile page
         View profilebutton = findViewById(R.id.textView);
         profilebutton.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
             @Override
             public void onClick(View v) {
                 openActivity5();
 
+            }
+        });
+
+        View logoutbutton = findViewById(R.id.logout);
+        logoutbutton.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
+            @Override
+            public void onClick(View v) {
+                onlogout();
             }
         });
 
@@ -103,12 +124,12 @@ public class Main4Activity extends AppCompatActivity {
         mRecyclerView.setAdapter(listAdapter);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 //        listAdapter.notifyDataSetChanged();
+
         //transparent status bar
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             Window w = getWindow();
             w.setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS, WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
         }
-
 
     }
 
@@ -125,7 +146,7 @@ public class Main4Activity extends AppCompatActivity {
         @SuppressLint("SimpleDateFormat") SimpleDateFormat outputformat = new SimpleDateFormat("hh:mm aa");
 
         if(thumbnail!=null ) {
-            List.add(new item(f.format(new Date()), outputformat.format(new Date()), currentAdd,x));
+            List.add(new item(f.format(new Date()), outputformat.format(new Date()), currentAdd,x,thumbnail));
             thumbnail = null;
             int dSize = List.size();
             mRecyclerView.getAdapter().notifyItemInserted(dSize);
@@ -214,30 +235,60 @@ public class Main4Activity extends AppCompatActivity {
         fusedLocationClient.removeLocationUpdates(locationCallback);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
     private void openActivity5() {
         Intent intent=new Intent(this, Main5Activity.class);
-        startActivity(intent);
+        ActivityOptions options = null;
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
+            options = ActivityOptions.makeSceneTransitionAnimation(this);
+        }
+        assert options != null;
+        startActivity(intent,options.toBundle());
+    }
+
+    @SuppressLint("RtlHardcoded")
+    public void setAnimation() {
+        if (Build.VERSION.SDK_INT > 20) {
+            Slide slide = new Slide();
+            slide.setSlideEdge(Gravity.RIGHT);
+            slide.setDuration(400);
+            slide.setInterpolator(new AccelerateDecelerateInterpolator());
+//            getWindow().setExitTransition(slide);
+            getWindow().setEnterTransition(slide);
+        }
     }
     public Bitmap getCroppedBitmap(Bitmap bitmap) {
         Bitmap output = Bitmap.createBitmap(bitmap.getWidth(),
                 bitmap.getHeight(), Bitmap.Config.ARGB_8888);
         Canvas canvas = new Canvas(output);
-
         final int color = 0xff424242;
         final Paint paint = new Paint();
         final Rect rect = new Rect(0, 0, bitmap.getWidth(), bitmap.getHeight());
-
         paint.setAntiAlias(true);
         canvas.drawARGB(0, 0, 0, 0);
         paint.setColor(color);
-        // canvas.drawRoundRect(rectF, roundPx, roundPx, paint);
         canvas.drawCircle(bitmap.getWidth() / 2, bitmap.getHeight() / 2,
                 bitmap.getWidth() / 2, paint);
         paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_IN));
         canvas.drawBitmap(bitmap, rect, rect, paint);
-        //Bitmap _bmp = Bitmap.createScaledBitmap(output, 60, 60, false);
-        //return _bmp;
         return output;
+    }
+
+    public void onlogout() {
+        new AlertDialog.Builder(this)
+                .setIcon(android.R.drawable.ic_dialog_alert)
+                .setTitle("Logout Alert ")
+                .setMessage("Are you sure you want to logout?")
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener()
+                {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        finish();
+                    }
+
+                })
+                .setNegativeButton("No", null)
+                .show();
     }
 
 }

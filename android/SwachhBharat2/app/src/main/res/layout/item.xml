@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="#8600C6">
+    android:background="#8600C6"
+    android:id="@+id/parent_layout">
 
     <View
         android:id="@+id/tile"

@@ -4,13 +4,14 @@ import android.graphics.Bitmap;
 
 public class item {
     String date,time,address;
-    Bitmap userPhoto;
+    Bitmap userPhoto,thumbnail;
 
-    public item(String date, String time, String address, Bitmap userPhoto){
+    public item(String date, String time, String address, Bitmap userPhoto,Bitmap thumbnail){
         this.time=time;
         this.date=date;
         this.address=address;
         this.userPhoto=userPhoto;
+        this.thumbnail=thumbnail;
     }
     public void setTime(String time ) {this.time= time;}
 
@@ -40,5 +41,9 @@ public class item {
 
     public Bitmap getUserPhoto() {
         return userPhoto;
+    }
+
+    public Bitmap getThumbnail(){
+        return thumbnail;
     }
 }
