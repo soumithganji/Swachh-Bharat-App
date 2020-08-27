@@ -9,14 +9,17 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
 import android.graphics.Rect;
 import android.location.Geocoder;
 import android.location.Location;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.Handler;
 import android.os.ResultReceiver;
 import android.provider.MediaStore;
@@ -34,6 +37,7 @@ import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+import androidx.core.content.FileProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -43,12 +47,11 @@ import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationResult;
 import com.google.android.gms.location.LocationServices;
 
+import java.io.File;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.Objects;
-
-
 
 
 public class Main4Activity extends AppCompatActivity {
@@ -64,6 +67,7 @@ public class Main4Activity extends AppCompatActivity {
     int cameraRequestCode = 1;
     int messagerequestcode=2;
     private Bitmap thumbnail,x;
+    private Bitmap bitmap;
 
     private static final int ADDRESS_PICKER_REQUEST = 1020;
 
@@ -114,8 +118,9 @@ public class Main4Activity extends AppCompatActivity {
             @Override
             public void onClick(View view){
                 //camera intent
-                Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                startActivityForResult(cameraIntent,cameraRequestCode);
+//                Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+//                startActivityForResult(cameraIntent,cameraRequestCode);
+                dispatchTakePictureIntent();
 
             }
         });
@@ -140,32 +145,42 @@ public class Main4Activity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
           String requiredText;
-
         if(resultCode==RESULT_OK&&requestCode==cameraRequestCode){
-            thumbnail = (Bitmap) Objects.requireNonNull(data.getExtras()).get("data");
-            x = Bitmap.createScaledBitmap(thumbnail, 130, 130, false);
-            x=getCroppedBitmap(x);
+            File file = new File(mCurrentPhotoPath);
+            try {
+                 bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), Uri.fromFile(file));
+                x = Bitmap.createScaledBitmap(bitmap, 130, 130, false);
+                x=RotateBitmap(x,90);
+                bitmap=RotateBitmap(bitmap,90);
+                bitmap=Bitmap.createScaledBitmap(bitmap,300,400,false);
+                x=getCroppedBitmap(x);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
             Intent intent=new Intent(this, message.class);
-            intent.putExtra("imagedata",data.getExtras());
+            intent.putExtra("imagedata",bitmap);
             startActivityForResult(intent,messagerequestcode);
         }
 
-         if(resultCode==RESULT_OK&&requestCode==messagerequestcode){
+        if(resultCode==RESULT_OK&&requestCode==messagerequestcode){
             requiredText=data.getStringExtra("message");
-             @SuppressLint("SimpleDateFormat") SimpleDateFormat f = new SimpleDateFormat("dd/MM/yyyy");
-             @SuppressLint("SimpleDateFormat") SimpleDateFormat outputformat = new SimpleDateFormat("hh:mm aa");
-             if(thumbnail!=null ) {
-                 List.add(new item(f.format(new Date()), outputformat.format(new Date()), currentAdd,x,thumbnail,requiredText));
-                 thumbnail = null;
-                 int dSize = List.size();
-                 mRecyclerView.getAdapter().notifyItemInserted(dSize);
-                 mRecyclerView.smoothScrollToPosition(dSize);
-             }
+            @SuppressLint("SimpleDateFormat") SimpleDateFormat f = new SimpleDateFormat("dd/MM/yyyy");
+            @SuppressLint("SimpleDateFormat") SimpleDateFormat outputformat = new SimpleDateFormat("hh:mm aa");
+            if(bitmap!=null ) {
+                List.add(new item(f.format(new Date()), outputformat.format(new Date()), currentAdd,x,bitmap,requiredText));
+                thumbnail = null;
+                int dSize = List.size();
+                mRecyclerView.getAdapter().notifyItemInserted(dSize);
+                mRecyclerView.smoothScrollToPosition(dSize);
+            }
 
         }
-
-
-
+    }
+    public static Bitmap RotateBitmap(Bitmap source, float angle)
+    {
+        Matrix matrix = new Matrix();
+        matrix.postRotate(angle);
+        return Bitmap.createBitmap(source, 0, 0, source.getWidth(), source.getHeight(), matrix, true);
     }
 
 
@@ -290,7 +305,7 @@ public class Main4Activity extends AppCompatActivity {
     public void onlogout() {
         new AlertDialog.Builder(this)
                 .setIcon(android.R.drawable.ic_dialog_alert)
-                .setTitle("Logout Alert ")
+                .setTitle("Logou`1qat Alert ")
                 .setMessage("Are you sure you want to logout?")
                 .setPositiveButton("Yes", new DialogInterface.OnClickListener()
                 {
@@ -303,6 +318,51 @@ public class Main4Activity extends AppCompatActivity {
                 .setNegativeButton("No", null)
                 .show();
     }
+
+    String mCurrentPhotoPath;
+
+    private File createImageFile() throws IOException {
+        // Create an image file name
+        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+        String imageFileName = "JPEG_" + timeStamp + "_";
+        File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+        File image = File.createTempFile(
+                imageFileName,  /* prefix */
+                ".jpg",         /* suffix */
+                storageDir      /* directory */
+        );
+
+        // Save a file: path for use with ACTION_VIEW intents
+        mCurrentPhotoPath = image.getAbsolutePath();
+        return image;
+    }
+
+    static final int REQUEST_TAKE_PHOTO = 1;
+
+    private void dispatchTakePictureIntent() {
+        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        // Ensure that there's a camera activity to handle the intent
+        if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
+            // Create the File where the photo should go
+            File photoFile = null;
+            try {
+                photoFile = createImageFile();
+            } catch (IOException ex) {
+                // Error occurred while creating the File
+            }
+            // Continue only if the File was successfully created
+            if (photoFile != null) {
+                Uri photoURI = FileProvider.getUriForFile(this,
+                        "com.example.swachhbharat",
+                        photoFile);
+                takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
+                startActivityForResult(takePictureIntent, REQUEST_TAKE_PHOTO);
+            }
+        }
+    }
+
+
+
 
 }
 

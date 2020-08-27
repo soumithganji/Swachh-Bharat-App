@@ -18,7 +18,8 @@ public class message extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.message);
 
-        Bitmap imageBitmap = (Bitmap) getIntent().getBundleExtra("imagedata").get("data");
+//        Bitmap imageBitmap = (Bitmap) getIntent().getBundleExtra("imagedata").get("data");
+        Bitmap imageBitmap  = (Bitmap)getIntent().getParcelableExtra("imagedata");
         ImageView imageView = findViewById(R.id.imageView3);
         imageView.setImageBitmap(imageBitmap);
 
